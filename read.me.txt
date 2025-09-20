@@ -1,0 +1,31 @@
+# Hashira Placements Assignment - Polynomial Interpolation Solution
+
+## Project Description
+This repository contains a Java solution for the Hashira Placements Assignment.  
+The task involves reading polynomial roots from a given JSON input and reconstructing the polynomial using Lagrange interpolation to find its constant term (secret). The roots are provided in various bases, and the program converts them to decimal before processing.
+
+## Features
+- Reads input in JSON format containing root values with their respective bases.
+- Converts root values from arbitrary bases to decimal.
+- Implements Lagrange interpolation to reconstruct the polynomial.
+- Computes and outputs the constant term of the polynomial.
+- Uses standard Java libraries without external dependencies for easy compilation.
+
+## Input Format
+The program expects a JSON input in the following form:
+{
+"keys": {"n": <number_of_roots>, "k": <minimum_roots_required>},
+"1": {"base": "<base>", "value": "<root_value>"},
+"2": {"base": "<base>", "value": "<root_value>"},
+...
+}
+
+text
+Example:
+{
+"keys": {"n": 4, "k": 3},
+"1": {"base": "10", "value": "4"},
+"2": {"base": "2", "value": "111"},
+"3": {"base": "10", "value": "12"},
+"6": {"base": "4", "value": "213"}
+}

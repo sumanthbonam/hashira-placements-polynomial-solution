@@ -1,0 +1,50 @@
+import java.io.*;
+import java.math.BigInteger;
+import java.util.*;
+
+class Main {
+    static class Point {
+        BigInteger x, y;
+        Point(BigInteger x, BigInteger y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    static BigInteger decode(String value, int base) {
+        return new BigInteger(value, base);
+    }
+
+    static BigInteger lagrangeConstantTerm(List<Point> points) {
+        int k = points.size();
+        BigInteger result = BigInteger.ZERO;
+        for (int i = 0; i < k; i++) {
+            BigInteger numerator = BigInteger.ONE;
+            BigInteger denominator = BigInteger.ONE;
+            for (int j = 0; j < k; j++) {
+                if (i != j) {
+                    numerator = numerator.multiply(points.get(j).x.negate());
+                    denominator = denominator.multiply(points.get(i).x.subtract(points.get(j).x));
+                }
+            }
+            BigInteger term = points.get(i).y.multiply(numerator).divide(denominator);
+            result = result.add(term);
+        }
+        return result;
+    }
+
+    static BigInteger solveFromString(String content) {
+        Map<String, String> baseMap = new HashMap<>();
+        Map<String, String> valueMap = new HashMap<>();
+        int n = 0, k = 0;
+        content = content.replaceAll("[\\s\\{\\}\"]", "");
+        String[] pairs = content.split(",");
+        for (String p : pairs) {
+            if (p.contains(":")) {
+                String[] kv = p.split(":");
+                String key = kv[0];
+                String val = kv[1];
+                if (key.equals("n")) n = Integer.parseInt(val);
+                else if (key.equals("k")) k = Integer.parseInt(val);
+                else if (key.endsWith("base")) baseMap.put(key.substring(0, key.length()-4), val);
+                else if (key.endsWith("value")) value
